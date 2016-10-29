@@ -1,3 +1,0 @@
-# T2: Embrace HTTP
-
-...
