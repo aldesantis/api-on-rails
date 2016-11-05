@@ -1,14 +1,14 @@
 # T2: Embrace HTTP
 
-## HTTP Status Codes
+## Status Codes
 
 ...
 
-## HTTP Verbs
+## Verbs
 
 ...
 
-## HTTP Headers
+## Headers
 
 - Accept
 - Content-Type
