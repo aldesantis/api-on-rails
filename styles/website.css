@@ -1,0 +1,19 @@
+aside.info {
+  padding: 15px;
+  border-top: 3px solid #bce8f1;
+  border-left: 2px solid #bce8f1;
+  border-right: 2px solid #bce8f1;
+  border-bottom: 2px solid #bce8f1;
+  background-color: #d9edf7;
+  /*color: #31708f;*/
+}
+
+aside.info > :first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+aside.info > :last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}

@@ -1,3 +1,4 @@
 {
-  "title": "HTTP APIs: The Rails Way"
+  "title": "API on Rails",
+  "plugins": ["nestedmd"]
 }
