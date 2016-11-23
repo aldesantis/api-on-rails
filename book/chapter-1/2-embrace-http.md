@@ -11,40 +11,108 @@ status codes and methods is in a web application of any kind.
 
 ## Methods
 
-Before Rails, GET and POST were the only two HTTP methods we knew. GET was used when clicking on
-links, POST was used for submitting forms and that was about it. Need to create an item? Use POST.
-Need to update an item? Use POST. Need to delete an item? Use POST. Or GET. Whatever, dude, as long
-as it works.
+Before Rails, `GET` and `POST` were the only two HTTP methods we knew. `GET` was used when clicking
+on links, `POST` was used for submitting forms and that was about it. Need to create an item? Use
+`POST`. Need to update an item? Use `POST`. Need to delete an item? Use `POST`. Or `GET`. Whatever,
+dude, as long as it works.
 
-Rails showed us that there are four HTTP methods: GET, POST, PUT and DELETE. GET retrieves a
-resource, POST creates a resource, PUT updates a resource, DELETE deletes a resource. We finally
-felt like we were using HTTP at its full potential!
+Rails showed us that there are four HTTP methods: `GET`, `POST`, `PUT` and `DELETE`. `GET` retrieves
+a resource, `POST` creates a resource, `PUT` updates a resource, `DELETE` deletes a resource. We
+finally felt like we were using HTTP at its full potential!
 
 That's not the entire story, either. The HTTP/1.1 specification lists 9 methods. We're not going to
 use all of them: some are meant to be handled by the web server rather than our application. For the
 sake of completeness, though, I'm going to list them all. Don't worry if some of the stuff in the
-table does not make sense right away: we'll define it in the next paragraphs.
+table doesn't make much sense right away: we'll define it in the next paragraphs.
 
-Method  | Used* | Safe | Idempotent | Description
-------- | ----- | ---- | ---------- | -----------
-GET     | Y     | Y    | Y          | Retrieves a representation of the resource at the given URI.
-HEAD    | Y     | Y    | Y          | Retrieves a representation of resource at the given URI without the body.
-POST    | Y     | N    | N          | Creates the provided resource child of the one identified by the given URI.
-PUT     | Y     | N    | Y          | Stores (i.e creates or updates) the provided resource at the given URI.
-PATCH   | Y     | N    | N          | Submits a partial modification to the resource at the given URI.
-DELETE  | Y     | N    | Y          | Deletes the resource at the given URI.
-OPTIONS | Y     | Y    | Y          | Returns the methods the server supports for the given URI.
-TRACE   | N     | Y    | Y          | Echoes the request, so that the client can trace any modifications made to it.
-CONNECT | N     | N/A  | N/A        | Converts the connection to a TCP/IP tunnel, useful for upgrading it to SSL.
+Method    | Used* | Safe | Idempotent | Description
+--------- | ----- | ---- | ---------- | -----------
+`GET`     | Y     | Y    | Y          | Retrieves a representation of the resource at the given URI.
+`HEAD`    | Y     | Y    | Y          | Retrieves a representation of resource at the given URI without the body.
+`POST`    | Y     | N    | N          | Creates the provided resource child of the one identified by the given URI.
+`PUT`     | Y     | N    | Y          | Stores (i.e creates or updates) the provided resource at the given URI.
+`PATCH`   | Y     | N    | N          | Submits a partial modification to the resource at the given URI.
+`DELETE`  | Y     | N    | Y          | Deletes the resource at the given URI.
+`OPTIONS` | Y     | Y    | Y          | Returns the methods the server supports for the given URI.
+`TRACE`   | N     | Y    | Y          | Echoes the request, so that the client can trace any modifications made to it.
+`CONNECT` | N     | N/D  | N/D        | Converts the connection to a TCP/IP tunnel, useful for upgrading it to SSL.
 
 (*) Whether the method is generally used when designing and implementing a RESTful API. From now
 on, these are the only methods we're going to talk about.
 
+<aside class="info" data-markdown>
 ### POST vs. PUT vs. PATCH
 
-It's worth talking a bit more in detail
+The `POST`, `PUT` and `PATCH` methods do similar things, so much so that they're often confusing
+for beginners. (Just think about this: by default, Rails 3 would incorrectly accept `PUT` in place
+of `PATCH` for partially updating resources.) For this reason, it's worth spending a few extra words
+on them and their differences.
 
-### Safe and Idempotent Methods
+#### POST
+
+`POST` is used when the payload of the request should be processed by the resource at the given URI.
+This might sound a bit abstract, so let's try to clarify it with an example:
+
+```json
+POST /posts
+
+{
+  "title": "My new blog post",
+  "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+}
+```
+
+This request asks the server to have the `/posts` resource (which can be thought of as the
+collection of all posts in the system) accept and process the request entity.
+
+A `POST` request does not necessarily result in a new resource being created (although it does in
+our example): it can also be used to annotate or append data to an existing resource. Generally
+speaking, the behavior of a `POST` request is determined by the request URI.
+
+#### PUT
+
+The `PUT` method is a bit more predictable than `POST`. It _puts_ - pretty literally - the enclosed
+entity at the provided URI. Let's see an example:
+
+```json
+PUT /posts/1
+
+{
+  "title": "My new blog post",
+  "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+}
+```
+
+After this request, the client can assume that `GET /posts/1` will return a representation of the
+entity that was previous `PUT` (assuming no parallel operations have occurred).
+
+An important distinction is that between `POST` and `PUT` will always replace the entity at the
+given URI if it already exists (unless of course there is an application-level constraint forbidding
+it).
+
+#### PATCH
+
+`PATCH` is used to apply a partial modification to an existing resource and is perhaps the simplest
+of the methods to comprehend.
+
+For instance, if we wanted to edit the title of an existing post, we could issue the following
+request:
+
+```json
+PATCH /posts/1
+
+{
+  "title": "My new post title"
+}
+```
+
+In these cases, `PATCH` is preferred over `PUT` for two reasons:
+
+1. the client might not want or be able to provide the full updated entity, and
+2. by sending exclusively the attributes to update, the client can save bandwidth.
+</aside>
+
+### Safety and Idempotence
 
 You might have noticed that some methods are both safe and idempotent, some are not safe but
 idempotent and some are neither safe nor idempotent.
