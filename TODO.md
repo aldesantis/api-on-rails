@@ -1,3 +1,3 @@
 # TODO
 
-- Install https://plugins.gitbook.com/plugin/page-numbering
+- Number chapters (either manually or through a plugin)
