@@ -17,3 +17,14 @@ aside.info > :last-child {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
 }
+
+.anchorjs-link {
+  color: #ccc !important;
+  transition: opacity .25s ease-in-out;
+  opacity: .65 !important;
+}
+
+.anchorjs-link:hover, .anchorjs-link:active, .anchorjs-link:focus {
+  text-decoration: none !important;
+  opacity: 1 !important;
+}

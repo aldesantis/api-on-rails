@@ -1,4 +1,11 @@
 {
   "title": "API on Rails",
-  "plugins": ["nestedmd"]
+  "plugins": ["nestedmd", "anchorjs"],
+  "pluginsConfig": {
+    "anchorjs": {
+      "icon": "¶",
+      "placement": "right",
+      "visible": "always"
+    }
+  }
 }

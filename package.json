@@ -18,6 +18,7 @@
   "homepage": "https://github.com/alessandro1997/api-on-rails#readme",
   "dependencies": {
     "gitbook": "^3.2.2",
+    "gitbook-plugin-anchorjs": "^1.1.1",
     "gitbook-plugin-nestedmd": "0.0.1"
   }
 }
