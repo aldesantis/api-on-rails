@@ -199,12 +199,81 @@ This is why `PATCH` is not idempotent by definition, even though we can (and sho
 
 ## Headers
 
-- Accept
-- Content-Type
-- Authorization
-- Cache
-- https://en.wikipedia.org/wiki/List_of_HTTP_header_fields
+Since Rails takes care of setting the right headers for us, we rarely stop to think about how we can
+leverage them to improve our API. HTTP headers, though, are quite useful: you can think of them as a
+set of metadata attached with a request or response. This metadata can be used by the server (in the
+case of a request) or the client (in the case of a response) to determine which format and encoding
+to use, what caching behavior to adopt, what links to follow after the request has completed and
+much more. We can even specify our very own custom headers (usually prefixed with `X-`).
+
+There are _a lot_ of standard and proprietary, but common, headers that you can use, and listing
+them all is not very useful nor necessary: you don't need to know about all of them in order to
+implement a functional API. However, you should have a look and see which ones you can use to make
+the experience more pleasant for your users. You can find a full list [on Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields).
+I suggest you skim through it: I can guarantee there will be at least a couple of _"Oh, that's
+cool!"_ moments.
+
+Of course, HTTP headers alone are not very useful if your API doesn't do anything with them. As with
+everything in HTTP, the power lies in the implementation. Luckily enough, there are a lot of
+libraries for Rails that will allow us to accomplish some useful tasks through HTTP headers: stuff
+like pagination, authentication and more. A good rule of thumb is that, if something is not part of
+the entity you're attaching to your request (or response), it probably belongs in the headers of
+that request (or response). Use them fiercely but carefully; you'll be fine.
 
 ## Status Codes
 
-- Take from Panther operation errors
+Just like with headers, it's rare for a developer to think about the most appropriate HTTP status
+code to respond with. We think the framework takes care of it, but it doesn't: even though it fully
+supports the entire range of HTTP status codes, Rails does not have any magic to determine the right
+status code to respond with. This means the responsibility of using the right status codes falls on
+us.
+
+<aside class="info" data-markdown>
+### What does the Rails say?
+
+In the above paragraph, I said that Rails is dumb when it comes to determining the right status
+code for a response. Actually, the framework _does_ use appropriate status codes in a limited set of
+situations. Knowing what Rails does in our place can help us write less code, so here's a list of
+default behaviors:
+
+- for successful requests, Rails will respond with `200 OK` unless told otherwise;
+- when a `.find` or `.find_by!` call fails, Rails will respond with `404 Not Found`;
+- when [`ActiveRecord::RecordNotUnique`](http://www.rubydoc.info/docs/rails/4.1.7/ActiveRecord/RecordNotUnique) is raised, Rails will respond with `409 Conflict`;
+- when the app crashes, Rails will respond with `500 Internal Server Error`.
+
+As you can imagine, these four cases only cover a very tiny fraction of the situations that can
+arise in an API. We'll have to handle the rest of them  ourselves.
+
+_(Yes, the title of this paragraph is a tribute to [this](https://www.youtube.com/watch?v=jofNR_WkoCE).)_
+</aside>
+
+As you probably know, HTTP status codes are split into 5 different classes, each identified by the
+first digit of the status code. Here's a list of them with a description of what each one does:
+
+Class | Description
+----- | -----------
+1xx   | The request was received and should be continued. (Rarely used.)
+2xx   | The request was received and handled successfully.
+3xx   | The request was received but requires additional action from the client.
+4xx   | The request was received but is erroneous. The client should fix it and retry.
+5xx   | The request was received but the server could not process it. The client can retry.
+
+Again, you can find the full list of status codes [on Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
+Since not all of them are useful in the context of a (simple) RESTful API, I have prepared another
+table with the ones we'll be using in the next chapters:
+
+Status code           | Description
+--------------------- | -----------
+200 OK                | -
+201 Created           |
+202 Accepted          |
+204 No Content        |
+301 Moved Permanently |
+302 Found             |
+400 Bad Request       |
+401 Unauthorized      |
+402 Payment Required  |
+403 Forbidden         |
+404 Not Found         |
+409 Conflict          |
+410 Gone              |
