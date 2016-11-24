@@ -139,9 +139,10 @@ defines HTTP/1.1):
 > NOT have side effects, and so are inherently idempotent.
 
 In other words, a **safe method** is a method that does not hold the user accountable for any
-modification to the state of the system. For instance, an API might increment the visit counter for
-a blog post every time it is retrieved. Even though it _does_ apply a modification, this request
-would still be considered safe, because the user did not request that the counter be updated.
+modification to the state of the system. For instance, an API might have an endpoint to retrieve the
+blog post. This would be a safe method. Even if the system incremented a the visit counter for the
+blog post on every request, this would still be considered a safe call, because the user did not
+request that the counter be updated and the call does not alter the data in a dangerous way.
 
 An **idempotent method**, on the other hand, guarantees that only the first of a set of identical
 requests will modify the state of the system. You should note that the RFC does not mention the
@@ -150,20 +151,21 @@ blog post, for instance, will result in a `200 OK` (or `204 No Content`) on the 
 `404 Not Found` on the second, because the post cannot be found. The request is still idempotent
 because the state of the system was not further modified by the second request.
 
-As you might have noticed, our first example cannot be considered strictly idempotent either, since
-every `GET` request for the blog post increments the counter (i.e. modifies the state of the
-system). You'll see that, in practice, some of your implementations will not be idempotent (or
-safe), even if they should. That's okay, as long as you don't forgo idempotency (or safety) in a way
-that breaks the client's expectations about the result of their requests.
+As you might have noticed, if the visit counter was implemented as previously stated, retrieving a
+blog post could not be considered strictly idempotent either, since every `GET` request for the blog
+post would increment the counter (i.e. modify the state of the system). You'll see that, in
+practice, some of your implementations will not be completely idempotent (or safe), even if they
+should be according to the HTTP specification. That's okay, as long as you don't forgo idempotency
+(or safety) in a way that breaks the client's expectations about the result of their requests.
 
 <aside class="info" data-markdown>
 #### Why is PATCH non-idempotent?
 
-You might be confused by the fact that PATCH is not included in the list of idempotent methods.
+You might be confused by the fact that `PATCH` is not included in the list of idempotent methods.
 After all, modifying the same resource in the same way twice should always yield the same result,
 right?
 
-Well, PATCH is kind of a special snowflake in the HTTP world, in that it is not idempotent by
+Well, `PATCH` is kind of a special snowflake in the HTTP world, in that it is not idempotent by
 definition, but _can_ be idempotent by implementation.
 
 Suppose that our blog posts API allows us to schedule posts to be published in the future. We can
@@ -178,7 +180,7 @@ modify the date of a post's publication with a request like this one:
  ```
 
 It requests that the server sets the `published_on` property of the post to `1479909858` (a UNIX
-time). This kind of PATCH request is idempotent, because - no matter if it's sent one or a million
+time). This kind of `PATCH` request is idempotent, because - no matter if it's sent one or a million
 times - the `published_on` property of the post will still be `1479909858` at the end.
 
 But that's not the only possible implementation of this feature. Suppose our API accepts this kind
@@ -194,7 +196,8 @@ of request, that postpones the publication of the post by a day:
 
 Can you spot the difference? Unlike the previous one, if we run this request a trillion times, it's
 very likely that [no one's going to read our post](http://phys.org/news/2015-02-sun-wont-die-billion-years.html).
-This is why `PATCH` is not idempotent by definition, even though we can (and should) make it so.
+This is why `PATCH` is not idempotent by definition, even though we can (and should) make it so when
+implementing it.
 </aside>
 
 ## Headers
@@ -248,7 +251,7 @@ _(Yes, the title of this paragraph is a tribute to [this](https://www.youtube.co
 </aside>
 
 As you probably know, HTTP status codes are split into 5 different classes, each identified by the
-first digit of the status code. Here's a list of them with a description of what each one does:
+first digit of the status code. Here's a list of them with a description of what each one means:
 
 Class | Description
 ----- | -----------
@@ -260,20 +263,42 @@ Class | Description
 
 Again, you can find the full list of status codes [on Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
 Since not all of them are useful in the context of a (simple) RESTful API, I have prepared another
-table with the ones we'll be using in the next chapters:
+table with the most useful ones. We're not going to use all of them, as some are a bit specific
+(e.g. `402 Payment Required`), but it's good to know abou them.
 
-Status code           | Description
---------------------- | -----------
-200 OK                | -
-201 Created           |
-202 Accepted          |
-204 No Content        |
-301 Moved Permanently |
-302 Found             |
-400 Bad Request       |
-401 Unauthorized      |
-402 Payment Required  |
-403 Forbidden         |
-404 Not Found         |
-409 Conflict          |
-410 Gone              |
+Status code                 | Description
+--------------------------- | -----------
+`200 OK`                    | Request processed; response body included, but might be empty.
+`201 Created`               | Request processed; resource created and included in the response.
+`202 Accepted`              | Request accepted but not processed yet.
+`204 No Content`            | Request processed; no response body available.
+`301 Moved Permanently`     | Resource was permanently moved to another URI.
+`302 Found`                 | Resource was temporarily moved to another URI.
+`400 Bad Request`           | Request is malformed.
+`401 Unauthorized`          | Client must provide authentication.
+`402 Payment Required`      | Client must provide payment.
+`403 Forbidden`             | Client is not authorized to perform this request.
+`404 Not Found`             | Resource could not be found.
+`409 Conflict`              | Request would generate a conflict.
+`410 Gone`                  | Resource is permanently gone and will not be available.
+`500 Internal Server Error` | Server encountered an internal error.
+`503 Service Unavailable`   | Resource temporarily unavailable.
+
+<aside class="info" data-markdown>
+### What's in a reason phrase?
+
+If an HTTP status code can already be uniquely identified by its number, what are the reason phrases
+for? Aren't they redundant?
+
+The answer is yes. Reason phrases are not meant for HTTP clients to understand the status code, but
+rather to make it more comprehensible by humans when they have to read it directly. So, instead of
+`200 OK` you could just as easily respond with `200 Done`, or `200 Not Found` or even just `200` and
+(compliant)  HTTP clients would still interpret it correctly.
+
+In fact, HTTP/1.1 lists reason phrases as optional (strictly speaking, a space would still be
+required after the number, but we can reasonably expect HTTP clients to work just as fine without
+it), while [HTTP/2 drops them completely](https://http2.github.io/http2-spec/#rfc.section.8.1.2.4).
+
+Of course, we're going to use the phrases suggested by the HTTP specification, as inventing new ones
+would be useless and confusing.
+</aside>
