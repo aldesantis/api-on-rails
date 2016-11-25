@@ -29,7 +29,7 @@ Method    | Used* | Safe | Idempotent | Description
 --------- | ----- | ---- | ---------- | -----------
 `GET`     | Y     | Y    | Y          | Retrieves a representation of the resource at the given URI.
 `HEAD`    | Y     | Y    | Y          | Retrieves a representation of resource at the given URI without the body.
-`POST`    | Y     | N    | N          | Creates the provided resource child of the one identified by the given URI.
+`POST`    | Y     | N    | N          | Creates the provided resource as a child of the one identified by the given URI.
 `PUT`     | Y     | N    | Y          | Stores (i.e creates or updates) the provided resource at the given URI.
 `PATCH`   | Y     | N    | N          | Submits a partial modification to the resource at the given URI.
 `DELETE`  | Y     | N    | Y          | Deletes the resource at the given URI.
@@ -86,7 +86,7 @@ PUT /posts/1
 After this request, the client can assume that `GET /posts/1` will return a representation of the
 entity that was previous `PUT` (assuming no parallel operations have occurred).
 
-An important distinction is that between `POST` and `PUT` will always replace the entity at the
+An important distinction between `POST` and `PUT` is that the latter will replace the entity at the
 given URI if it already exists (unless of course there is an application-level constraint forbidding
 it).
 
@@ -108,14 +108,14 @@ PATCH /posts/1
 
 In these cases, `PATCH` is preferred over `PUT` for two reasons:
 
-1. the client might not want or be able to provide the full updated entity, and
+1. the client might not want or be able to provide the full updated entity and,
 2. by sending exclusively the attributes to update, the client can save bandwidth.
 </aside>
 
 ### Safety and Idempotence
 
-You might have noticed that some methods are both safe and idempotent, some are not safe but
-idempotent and some are neither safe nor idempotent.
+You might have noticed that some methods are listed as both safe and idempotent, some are not safe
+but idempotent and some are neither safe nor idempotent.
 
 So, what's the difference between idempotence and safety? Here are the definitions from
 [section 9 of RFC 2616](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) (the one that
@@ -142,7 +142,7 @@ In other words, a **safe method** is a method that does not hold the user accoun
 modification to the state of the system. For instance, an API might have an endpoint to retrieve the
 blog post. This would be a safe method. Even if the system incremented a the visit counter for the
 blog post on every request, this would still be considered a safe call, because the user did not
-request that the counter be updated and the call does not alter the data in a dangerous way.
+request that the counter be updated and the call does not alter the data significantly.
 
 An **idempotent method**, on the other hand, guarantees that only the first of a set of identical
 requests will modify the state of the system. You should note that the RFC does not mention the
@@ -264,7 +264,7 @@ Class | Description
 Again, you can find the full list of status codes [on Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
 Since not all of them are useful in the context of a (simple) RESTful API, I have prepared another
 table with the most useful ones. We're not going to use all of them, as some are a bit specific
-(e.g. `402 Payment Required`), but it's good to know abou them.
+(e.g. `402 Payment Required`), but it's good to know about them.
 
 Status code                 | Description
 --------------------------- | -----------
@@ -302,3 +302,8 @@ it), while [HTTP/2 drops them completely](https://http2.github.io/http2-spec/#rf
 Of course, we're going to use the phrases suggested by the HTTP specification, as inventing new ones
 would be useless and confusing.
 </aside>
+
+Clients will use status codes to inform their users about the result of an operation and, possibly,
+to determine what behavior to adopt after the operation has completed. For this reason, learning to
+use the right status code at the right time is key to developing a functional RESTful API. It's not
+magic: a little practice is all you'll need.
