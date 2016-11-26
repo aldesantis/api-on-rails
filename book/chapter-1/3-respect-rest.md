@@ -151,11 +151,11 @@ that summarizes it pretty effectively, but we're also going to give our descript
   </dd>
 
   <dt>Level 3: Hypermedia</dt>
-  <dd>
+  <dd data-markdown>
     This is something that many so-called RESTful APIs get wrong. The Uniform Interface constraint
     requires that a client only really needs to know about the entry-point of a resource. All
     subsequent interactions should be made through hypermedia provided by the server along with the
-    resource. We'll expand on this in the paragragh below (_What is HATEOAS?_).
+    resource. We'll expand on this in the paragragh below (_"What is HATEOAS?"_).
   </dd>
 </dl>
 
