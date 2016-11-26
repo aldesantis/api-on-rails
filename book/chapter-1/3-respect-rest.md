@@ -128,7 +128,7 @@ builds upon and expands the pervious one. It is called the
 [Martin Fowler](http://martinfowler.com/articles/richardsonMaturityModel.html) wrote a blog psot
 that summarizes it pretty effectively, but we're also going to give our description of it:
 
-<dl>
+<dl data-markdown>
   <dt>Level 0: RPC over HTTP</dt>
   <dd>
     This level is the most basic one: at this point, the web service is simply using HTTP as a
