@@ -66,33 +66,107 @@ imposes on each one of them in the next paragraph.
 
 ## Architectural constraints
 
-In order to implement REST, a web service has to implement the following architectural constraints:
+In order to implement REST, a web service has to implement the following architectural constraints.
 
 - http://whatisrest.com/rest_constraints/index
 
 <dl>
   <dt>Client-Server</dt>
-  <dd></dd>
+  <dd>
+    Client-server refers to an architecture where the server stores all authoritative information
+    about the resources of the web service. The client does not operate on the resources directly:
+    it merely asks the server to perform operations on the resources.
+  </dd>
 
   <dt>Stateless</dt>
-  <dd></dd>
+  <dd>
+    The server does not store any information about the state of the clients interacting with it.
+    This makes a RESTful service to scale more easily as the number of clients grows. Additionally,
+    it makes implementation and testing much easier.
+  </dd>
 
   <dt>Cache</dt>
-  <dd></dd>
+  <dd>
+    All the responses provided by a server should contain explicit or implicit caching indications
+    (i.e. whether the resource can be cached or not and, if yes, for how long).
+  </dd>
 
-  <dt>Interface / Uniform Contract</dt>
-  <dd></dd>
+  <dt>Uniform Interface</dt>
+  <dd>
+    All resources on the server should be accessed through the same interface. This minimizes the
+    effort required to learn and use a RESTful service (it arguably makes the implementation easier
+    as well). Over HTTP, this constraint is implemented by using HTTP methods and media types.
+  </dd>
 
   <dt>Layered System</dt>
-  <dd></dd>
+  <dd>
+    A RESTful service is made of one or more layers that can only "see" the next one. These layers
+    can be anything from load balancers to authentication proxies. The client does not know anything
+    about any layers past the most external ones.
+  </dd>
 
   <dt>Code-On-Demand</dt>
-  <dd></dd>
+  <dd>
+    This is an optional constraint of REST: a server can provide code that extends the functionality
+    of and offload certain computations to the client.
+  </dd>
 </dl>
+
+If any of the above constraints is not respected, a web service cannot be considered strictly
+RESTful. The only exception is the **Code-On-Demand** constraint, which is optional.
 
 ## The Richardson Maturity Model
 
-- http://martinfowler.com/articles/richardsonMaturityModel.html
+RESTfulness is a binary feature: your web service is either RESTful, when it implements all the
+requirements, or non-RESTful. However, not all non-RESTful services are created alike: some of them
+are very non-RESTful, some are a little bit non-RESTful, some are five minutes of work away from
+RESTfulness.
+
+Leonard Richardson devised a scale comprised of four levels of (non-)RESTfulness, where each level
+builds upon and expands the pervious one. It is called the
+[Richardson Maturity Model](https://www.crummy.com/writing/speaking/2008-QCon/act3.html) and
+[Martin Fowler](http://martinfowler.com/articles/richardsonMaturityModel.html) wrote a blog psot
+that summarizes it pretty effectively, but we're also going to give our description of it:
+
+<dl>
+  <dt>Level 0: RPC over HTTP</dt>
+  <dd>
+    This level is the most basic one: at this point, the web service is simply using HTTP as a
+    tunnel to accept requests for a remote procedure and deliver their responses, all through thee
+    same endpoint. There is no notion of resource or HTTP method.
+  </dd>
+
+  <dt>Level 1: Resources</dt>
+  <dd>
+    This is the very beginning of RESTfulness: the subjects of the remote calls are encapsulated in
+    logical resources which can be accessed through their own URI.
+  </dd>
+
+  <dt>Level 2: Methods</dt>
+  <dd>
+    As you know from the previous paragraph, HTTP methods are extremely important in a RESTful web
+    service, as clients use them to make certain assumptions about the effect of their requests and
+    the cacheability of the responses. At level 2, we start using the correct HTTP methods for
+    resource URIs.
+  </dd>
+
+  <dt>Level 3: Hypermedia</dt>
+  <dd>
+    This is something that many so-called RESTful APIs get wrong. The Uniform Interface constraint
+    requires that a client only really needs to know about the entry-point of a resource. All
+    subsequent interactions should be made through hypermedia provided by the server along with the
+    resource. We'll expand on this in the paragragh below (_What is HATEOAS?_).
+  </dd>
+</dl>
+
+Again, these four levels are all preconditions of a RESTful web service: they must all be
+implemented (and more) for a web service to be called RESTful.
+
+<aside class="info" data-markdown>
+### What is HATEOAS?
+
+...
+</aside>
 
 ## REST against the rest
 
