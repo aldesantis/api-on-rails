@@ -215,7 +215,7 @@ And here's what the corresponding response looks like:
 </methodResponse>
 ```
 
-The main difference between REST and RPC is that, while REST focuses on information, RPC focuses on function.
+As you can see from the example, the main difference between REST and RPC is that, while REST focuses on information, RPC focuses on function.
 
 RPC has some advantages over REST:
 
