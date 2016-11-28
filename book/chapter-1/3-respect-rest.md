@@ -205,10 +205,29 @@ that clients can perform a flow of related operations without ever "leaving" the
 This section briefly compares the REST web service architecture with the most popular alternatives,
 presenting the advantages and drawbacks of each approach.
 
-### RPC
-
-- http://stackoverflow.com/questions/7410040/what-differentiates-a-rest-web-service-from-a-rpc-like-one
-
 ### SOAP
 
-- http://stackoverflow.com/questions/19884295/soap-vs-rest-differences
+- History
+- Example structure
+
+Cons:
+
+- Requires more bandwidth (XML, envelope)
+- XML is slower to parse than JSON
+- No HTTP verbs (no guarantee of safety, idempotence or cacheability)
+- Less standardized than REST (because there are no resources?)
+
+### RPC
+
+- History
+- Example structure
+- Function vs. information (resource vs. procedure)
+
+Pros:
+
+- Makes more sense in enterprise environments
+
+Cons:
+
+- No HTTP verbs (no guarantee of safety, idempotence or cacheability)
+- Less standardized than REST (because there are no resources?)
