@@ -1,5 +1,4 @@
 # Introduction
-
 It's not a secret anymore that Rails can be used to easily create RESTful, rich HTTP APIs. In fact, a plethora of articles have emerged in the last few years about:
 
 - how to accept and serve JSON in Rails;
