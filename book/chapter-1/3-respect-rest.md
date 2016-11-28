@@ -217,9 +217,9 @@ And here's what the corresponding response looks like:
 
 The main difference between REST and RPC is that, while REST focuses on information, RPC focuses on function.
 
-RPC has the advantage of being simpler to implement than REST, because designing an RPC service requires less work than designing a RESTful service. It is also more widespread in corporate environments, where goal is not to structure information in resources but to perform a certain task.
+RPC has some advantages over REST:
 
-Cons:
+- it is simpler to implement, because designing an RPC service requires less work than designing a RESTful service;
+- it is usually preferred in some corporate environments, where the goal is not to structure information in resources but to perform a certain task.
 
-- No HTTP verbs (no guarantee of safety, idempotence or cacheability)
-- Less standardized than REST (because there are no resources?)
+On the other hand, it also has disadvantages: as with RPC, no standard verbs are used, so there is no guarantee of safety, idempotence or cacheability.
