@@ -68,8 +68,6 @@ imposes on each one of them in the next paragraph.
 
 In order to implement REST, a web service has to implement the following architectural constraints.
 
-- http://whatisrest.com/rest_constraints/index
-
 <dl>
   <dt>Client-Server</dt>
   <dd>
@@ -165,7 +163,41 @@ implemented (and more) for a web service to be called RESTful.
 <aside class="info" data-markdown>
 ### What is HATEOAS?
 
-...
+Here's another acronym for you: HATEOAS. It stands for _Hypermedia As The Engine Of Application
+State_ and it's the concept behind the third level of the Richardson Maturity Model.
+
+The principle is that a client should be able to enter the web service through a fixed entrypoint
+and perform all subsequent interactions through hypermedia provided by the responses. This
+distinguishes REST from other architectures where the client constructs its requests from the
+documentation (either human or machine-readable).
+
+Let's see an example response from an API implementing HATEOAS (note that HTTP headers are preferred
+and used in this book, but links can also be included in the body):
+
+```json
+GET /posts/1
+
+Link: </posts/1>; rel="self",
+      </posts/1/comments>; rel="comments"
+
+{
+  "id": 1,
+  "title": "My blog post"
+}
+```
+
+As you can see, the response headers contain a `Link` header that exposes two links:
+
+- the first one points the client to the requested resource (which should always be included);
+- the second one points it to the comments resource related to this post.
+
+Thanks to these headers, the client can request the post's comments without any knowledge about the
+URI of the comments resource.
+
+Note that the headers do not tell the client anything about what to do with the related resources:
+they only tell them _where_ they can be found. HATEOAS does not have anything to do with machines
+magically understanding how to use our API, as it is commonly  misunderstood; it simply guarantees
+that clients can perform a flow of related operations without ever "leaving" the web service.
 </aside>
 
 ## REST against the rest
