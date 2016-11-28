@@ -1,5 +1,4 @@
 # T1: Be Boring
-
 Ideally, a consumer of the API should never be surprised by how you handle things - while this is rarely the case in a real-world scenario, you should still aim at creating something that's as reproducible as possible. A good rule of thumb is that people should never be inspecting your response to figure out how to get what they want: they should _just know_.
 
 Be boring: people will thank you for it.
@@ -7,7 +6,6 @@ Be boring: people will thank you for it.
 This boils down to just two techniques which we'll be exploring in the next chapters, but let's touch on them briefly already to underline their importance.
 
 ## Consistency
-
 This requires some initial work, but should be easy to follow once you get things rolling.
 
 You should ensure that the way you parse incoming requests and the responses you produce to those requests are consistent across the entire set of operations and situations your API handles.
@@ -45,7 +43,6 @@ Can you see what's wrong with it? It does not follow the response format you had
 The example shows an error response because, in my experience, this is where things go wrong (pun definitely intended) most often, but the same principle applies to all responses and all other kinds of behavior in your API.
 
 ## Documentation
-
 You know what's _really_ boring? That's right, documentation.
 
 In order to ensure that your API is understood by everyone, you have to document, document, document and then document some more.
