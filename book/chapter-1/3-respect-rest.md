@@ -77,7 +77,7 @@ If any of the above constraints is not respected, a web service cannot be consid
 ## The Richardson Maturity Model
 RESTfulness is a binary feature: your web service is either RESTful, when it implements all the requirements, or non-RESTful. However, not all non-RESTful services are created alike: some of them are very non-RESTful, some are a little bit non-RESTful, some are five minutes of work away from RESTfulness.
 
-Leonard Richardson devised a scale comprised of four levels of (non-)RESTfulness, where each level builds upon and expands the pervious one. It is called the [Richardson Maturity Model](https://www.crummy.com/writing/speaking/2008-QCon/act3.html) and [Martin Fowler](http://martinfowler.com/articles/richardsonMaturityModel.html) wrote a blog post that summarizes it pretty effectively, but we're also going to give our description of it:
+Leonard Richardson devised a scale comprised of four levels of (non-)RESTfulness, where each level builds upon and expands the previous one. It is called the [Richardson Maturity Model](https://www.crummy.com/writing/speaking/2008-QCon/act3.html) and [Martin Fowler](http://martinfowler.com/articles/richardsonMaturityModel.html) wrote a blog post that summarizes it pretty effectively, but we're also going to give our description of it:
 
 <dl data-markdown>
   <dt>Level 0: Remote procedures over HTTP</dt>
@@ -97,7 +97,7 @@ Leonard Richardson devised a scale comprised of four levels of (non-)RESTfulness
 
   <dt>Level 3: Hypermedia</dt>
   <dd data-markdown>
-    This is something that many so-called RESTful APIs get wrong. The Uniform Interface constraint requires that a client only really needs to know about the entry-point of a resource. All subsequent interactions should be made through hypermedia provided by the server along with the resource. We'll expand on this in the paragragh below (_"What is HATEOAS?"_).
+    This is something that many so-called RESTful APIs get wrong. The Uniform Interface constraint requires that a client only really needs to know about the entry-point of a resource. All subsequent interactions should be made through hypermedia provided by the server along with the resource. We'll expand on this in the paragraph below (_"What is HATEOAS?"_).
   </dd>
 </dl>
 
