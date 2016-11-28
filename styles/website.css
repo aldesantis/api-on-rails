@@ -19,9 +19,8 @@ aside.info > :last-child {
 }
 
 .anchorjs-link {
-  color: #ccc !important;
+  color: #aaa !important;
   transition: opacity .25s ease-in-out;
-  opacity: .65 !important;
 }
 
 .anchorjs-link:hover, .anchorjs-link:active, .anchorjs-link:focus {

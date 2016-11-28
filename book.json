@@ -4,8 +4,7 @@
   "pluginsConfig": {
     "anchorjs": {
       "icon": "¶",
-      "placement": "right",
-      "visible": "always"
+      "placement": "right"
     }
   }
 }
