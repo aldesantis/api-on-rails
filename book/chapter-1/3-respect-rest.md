@@ -127,7 +127,7 @@ builds upon and expands the pervious one. It is called the
 that summarizes it pretty effectively, but we're also going to give our description of it:
 
 <dl data-markdown>
-  <dt>Level 0: RPC over HTTP</dt>
+  <dt>Level 0: Remote procedures over HTTP</dt>
   <dd>
     This level is the most basic one: at this point, the web service is simply using HTTP as a
     tunnel to accept requests for a remote procedure and deliver their responses, all through thee
