@@ -183,10 +183,38 @@ The SOAP protocol presents many disadvantages when compared with REST:
 
 The rigidness of SOAP is, at the same time, an advantage: since both the server and the client must adhere to a pre-defined contract, any violations of the contract are easy to spot automatically.
 
-### XML-RPC
+### RPC
+RPC (Remote Procedure Call) is a kind of request-response protocol that dates back to the beginning of time. At its simplest, a computer sends a request to another computer to perform a specific procedure with specific parameters. The receiver parses the request, performs it and returns a response to the client. There is a bit more to it, but this is explanation will work for our comparison.
 
-- History
-- Example structure
+RPC can be encoded in many different languages, the most common being XML (JSON is supported too). RPC over XML is called XML-RPC.
+
+Here's an example XML-RPC request:
+
+```xml
+<?xml version="1.0"?>
+<methodCall>
+  <methodName>users.getUserName</methodName>
+  <params>
+    <param>
+        <value><int>1</int></value>
+    </param>
+  </params>
+</methodCall>
+```
+
+And here's what the corresponding response looks like:
+
+```xml
+<?xml version="1.0"?>
+<methodResponse>
+  <params>
+    <param>
+        <value><string>John Doe</string></value>
+    </param>
+  </params>
+</methodResponse>
+```
+
 - Function vs. information (resource vs. procedure)
 
 Pros:
