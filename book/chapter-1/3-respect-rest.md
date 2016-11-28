@@ -128,9 +128,9 @@ As you can see, the response headers contain a `Link` header that exposes two li
 - the first one points the client to the requested resource (which should always be included);
 - the second one points it to the comments resource related to this post.
 
-Thanks to these headers, the client can request the post's comments without any knowledge about the URI of the comments resource.
-
 Note that the headers do not tell the client anything about what to do with the related resources: they only tell them _where_ they can be found. HATEOAS does not have anything to do with machines magically understanding how to use our API, as it is commonly  misunderstood; it simply guarantees that clients can perform a flow of related operations without ever "leaving" the web service.
+
+HATEOAS is what makes REST so resilient to change and so similar to how the web works: when you visit a website, you only enter the homepage's URL. From that point, all interactions happen by clicking on a link or button (i.e. they are driven by the hypertext). Unfortunately, HATEOAS is also the least implemented of the REST architectural constraints. As a result, a great part of the "RESTful" APIs are not really RESTful (they usually belong to level 2 of the Richardson Maturity Model): if websites worked the same way, you'd have to build all the URLs by hand, referring to the website's documentation. The situation is so bad that Roy Fielding [wrote a blog post about it](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven).
 </aside>
 
 ## REST vs. the Rest
