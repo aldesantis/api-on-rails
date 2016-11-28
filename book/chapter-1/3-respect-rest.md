@@ -136,6 +136,8 @@ Note that the headers do not tell the client anything about what to do with the 
 ## REST vs. the Rest
 This section briefly compares the REST web service architecture with the most popular alternatives, presenting the advantages and drawbacks of each approach.
 
+It is worth noting that this comparison is not formally correct, since REST is an architectural style, while both SOAP and (XML-)RPC are information exchange protocols. For the sake of simplicity, we will be using the protocol name to also reference an architectural style that uses the protocol.
+
 ### SOAP
 SOAP (Simple Object Access Protocol) is an information exchange protocol designed in 1998 at Microsoft. It reached the W3C recommendation status in 2003, thus becoming a standard.
 
@@ -174,9 +176,10 @@ The SOAP protocol presents many disadvantages when compared with REST:
 
 - because of its verbosity, it requires more bandwidth to send;
 - XML is slow to parse (even though XML Information Set can be used with JSON);
-- because there is no mandatory vocabulary for expressing operation types, there is no guarantee of operation safety, idempotence or cacheability (these are all things that come for free with HTTP).
+- because there is no mandatory vocabulary for expressing operation types, there is no guarantee of operation safety, idempotence or cacheability (these are all things that come for free with HTTP);
+- there is tight coupling between the client and the server, which means most server-side changes require the clients to be updated accordingly.
 
-### RPC
+### XML-RPC
 
 - History
 - Example structure
