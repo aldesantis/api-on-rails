@@ -179,6 +179,8 @@ The SOAP protocol presents many disadvantages when compared with REST:
 - because there is no mandatory vocabulary for expressing operation types, there is no guarantee of operation safety, idempotence or cacheability (these are all things that come for free with HTTP);
 - there is tight coupling between the client and the server, which means most server-side changes require the clients to be updated accordingly.
 
+The rigidness of SOAP is, at the same time, an advantage: since both the server and the client must adhere to a pre-defined contract, any violations of the contract are easy to spot automatically.
+
 ### XML-RPC
 
 - History
