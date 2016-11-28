@@ -215,11 +215,9 @@ And here's what the corresponding response looks like:
 </methodResponse>
 ```
 
-- Function vs. information (resource vs. procedure)
+The main difference between REST and RPC is that, while REST focuses on information, RPC focuses on function.
 
-Pros:
-
-- Makes more sense in enterprise environments
+RPC has the advantage of being simpler to implement than REST, because designing an RPC service requires less work than designing a RESTful service. It is also more widespread in corporate environments, where goal is not to structure information in resources but to perform a certain task.
 
 Cons:
 
