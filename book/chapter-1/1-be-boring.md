@@ -47,7 +47,7 @@ You know what's _really_ boring? That's right, documentation.
 
 In order to ensure that your API is understood by everyone, you have to document, document, document and then document some more.
 
-You document the general architecture: the format you use for requests and responses, how youpaginate collections, the authentication protocol you use and any other relevant information.
+You document the general architecture: the format you use for requests and responses, how you paginate collections, the authentication protocol you use and any other relevant information.
 
 You document every resource: what it is and how it integrates with the rest of your system, what operations can be performed on it, what conditions are required to perform them, what arguments they accept, what arguments they require and how they respond.
 
