@@ -137,20 +137,44 @@ Note that the headers do not tell the client anything about what to do with the 
 This section briefly compares the REST web service architecture with the most popular alternatives, presenting the advantages and drawbacks of each approach.
 
 ### SOAP
+SOAP (Simple Object Access Protocol) is an information exchange protocol designed in 1998 at Microsoft. It reached the W3C recommendation status in 2003, thus becoming a standard.
 
-- History
-- Example structure
+SOAP uses XML Information Set (which is not necessarily expressed in XML) to deliver structured information. A SOAP message is made of three (sometimes four) parts:
 
-Pros:
+<dl>
+  <dt>Envelope</dt>
+  <dd>The envelope wraps the XML document, identifying it as a SOAP message.</dd>
+  
+  <dt>Header</dt>
+  <dd>The header contains application-specific information about the SOAP message.</dd>
+  
+  <dt>Body</dt>
+  <dd>The body contains the call and the response of the SOAP message.</dd>
+  
+  <dt>Fault</dt>
+  <dd>This section contains any errors occurred while processing the call.</dd>
+</dl>
 
-- ???
+Here's an example SOAP message (taken from Wikipedia):
 
-Cons:
+```xml
+<?xml version="1.0"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:m="http://www.example.org/stock/Surya">
+  <soap:Header>
+  </soap:Header>
+  <soap:Body>
+    <m:GetStockPrice>
+      <m:StockName>IBM</m:StockName>
+    </m:GetStockPrice>
+  </soap:Body>
+</soap:Envelope>
+```
 
-- Requires more bandwidth (XML, envelope)
-- XML is slower to parse than JSON
-- No HTTP verbs (no guarantee of safety, idempotence or cacheability)
-- Less standardized than REST (because there are no resources?)
+The SOAP protocol presents many disadvantages when compared with REST:
+
+- because of its verbosity, it requires more bandwidth to send;
+- XML is slow to parse (even though XML Information Set can be used with JSON);
+- because there is no mandatory vocabulary for expressing operation types, there is no guarantee of operation safety, idempotence or cacheability (these are all things that come for free with HTTP).
 
 ### RPC
 
