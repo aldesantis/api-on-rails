@@ -159,7 +159,7 @@ should be according to the HTTP specification. That's okay, as long as you don't
 (or safety) in a way that breaks the client's expectations about the result of their requests.
 
 <aside class="info" data-markdown>
-#### Why is PATCH non-idempotent?
+#### Why Is PATCH Non-Idempotent?
 
 You might be confused by the fact that `PATCH` is not included in the list of idempotent methods.
 After all, modifying the same resource in the same way twice should always yield the same result,
@@ -232,7 +232,7 @@ status code to respond with. This means the responsibility of using the right st
 us.
 
 <aside class="info" data-markdown>
-### What does the Rails say?
+### What Does the Rails Say?
 
 In the above paragraph, I said that Rails is dumb when it comes to determining the right status
 code for a response. Actually, the framework _does_ use appropriate status codes in a limited set of
@@ -285,7 +285,7 @@ Status code                 | Description
 `503 Service Unavailable`   | Resource temporarily unavailable.
 
 <aside class="info" data-markdown>
-### What's in a reason phrase?
+### What's in a Reason Phrase?
 
 If an HTTP status code can already be uniquely identified by its number, what are the reason phrases
 for? Aren't they redundant?

@@ -64,7 +64,7 @@ imposes on each one of them in the next paragraph.
   </dd>
 </dl>
 
-## Architectural constraints
+## Architectural Constraints
 
 In order to implement REST, a web service has to implement the following architectural constraints.
 
@@ -161,7 +161,7 @@ Again, these four levels are all preconditions of a RESTful web service: they mu
 implemented (and more) for a web service to be called RESTful.
 
 <aside class="info" data-markdown>
-### What is HATEOAS?
+### What Is HATEOAS?
 
 Here's another acronym for you: HATEOAS. It stands for _Hypermedia As The Engine Of Application
 State_ and it's the concept behind the third level of the Richardson Maturity Model.
@@ -200,12 +200,15 @@ magically understanding how to use our API, as it is commonly  misunderstood; it
 that clients can perform a flow of related operations without ever "leaving" the web service.
 </aside>
 
-## REST against the rest
+## REST and the Rest
 
-### REST vs. RPC
+This section briefly compares the REST web service architecture with the most popular alternatives,
+presenting the advantages and drawbacks of each approach.
+
+### RPC
 
 - http://stackoverflow.com/questions/7410040/what-differentiates-a-rest-web-service-from-a-rpc-like-one
 
-### REST vs. SOAP
+### SOAP
 
 - http://stackoverflow.com/questions/19884295/soap-vs-rest-differences
