@@ -200,7 +200,7 @@ magically understanding how to use our API, as it is commonly  misunderstood; it
 that clients can perform a flow of related operations without ever "leaving" the web service.
 </aside>
 
-## REST and the Rest
+## REST vs. the Rest
 
 This section briefly compares the REST web service architecture with the most popular alternatives,
 presenting the advantages and drawbacks of each approach.
@@ -209,6 +209,10 @@ presenting the advantages and drawbacks of each approach.
 
 - History
 - Example structure
+
+Pros:
+
+- ???
 
 Cons:
 
