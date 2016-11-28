@@ -2,8 +2,7 @@
     "title": "API on Rails",
     "plugins": [
         "nestedmd",
-        "anchorjs",
-        "numbered-headings-for-web-and-books"
+        "anchorjs"
     ],
     "pluginsConfig": {
         "anchorjs": {
