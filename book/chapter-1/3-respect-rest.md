@@ -143,7 +143,7 @@ It is worth noting that this comparison is not formally correct, since REST is a
 ### SOAP
 SOAP (Simple Object Access Protocol) is an information exchange protocol designed in 1998 at Microsoft. It reached the W3C recommendation status in 2003, thus becoming a standard.
 
-SOAP uses XML Information Set (which is not necessarily expressed in XML) to deliver structured information. A SOAP message is made of three (sometimes four) parts:
+SOAP uses [XML Information Set](https://en.wikipedia.org/wiki/XML_Information_Set) (which is not necessarily expressed in XML) to deliver structured information. A SOAP message is made of three (sometimes four) parts:
 
 <dl>
   <dt>Envelope</dt>
